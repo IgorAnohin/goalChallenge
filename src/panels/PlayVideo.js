@@ -21,7 +21,6 @@ export default class PlayVideo extends Component {
       photo_url: photo_url
     };
 
-    // this.onAddMessage = this.onAddMessage.bind(this);
   }
 
   componentWillMount() {
@@ -34,7 +33,6 @@ export default class PlayVideo extends Component {
     //
     //
     videoRef.on('value', snapshot => {
-        alert(this.props.user);
       let videosObj = snapshot.val();
       let videos = [];
       if (videosObj !== undefined && videosObj !== null) {
@@ -43,29 +41,17 @@ export default class PlayVideo extends Component {
           let videoUrl;
           videos.map((video)=>{if (video.user=="2018"){videoUrl=video.url}})
           this.setState(prevState => ({
-            videoUrl: videoUrl,
+            videoUrl: videoUrl
           }));
       }
     });
   }
 
-  // onAddMessage(event) {
-  //   event.preventDefault();
-  //   database.ref('videos').push({ev: this.input.value, userid: this.state.username, video: this.state.photo_url});
-  //   this.input.setState({value: ""});
-  // }
 
-    // onAddVideo(event) {
-    //     event.preventDefault();
-    //     database.ref('videos').push({text: this.input.value, user: this.state.username, photo: this.state.photo_url});
-    //     this.input.setState({value: ""});
-    // }
 
   render() {
     return (
       <Div>
-          {/*<ReactPlayer url='https://www.youtube.com/watch?v=djHksT0DCGQ' playing />*/}
-          {/*<ReactPlayer url={this.state.videoUrl} playing />*/}
           <Gallery
               id="fff"
               slideWidth="100%"
@@ -77,34 +63,6 @@ export default class PlayVideo extends Component {
 
               </div>
           </Gallery>
-
-          {/*<List>*/}
-        {/*    {this.state.messages.map((message) => {*/}
-        {/*     const _class = message.user === this.state.username ? 'message-left container' : 'message-right container';*/}
-        {/*    return (*/}
-        {/*        <Cell*/}
-        {/*          className={_class}*/}
-        {/*          before={<Avatar src={message.photo}/>}*/}
-        {/*          description={message.text}*/}
-        {/*        >*/}
-        {/*          {message.user}*/}
-        {/*        </Cell>*/}
-        {/*    )*/}
-        {/*    })}*/}
-        {/*</List>*/}
-
-          {/*<Vide src="../img/v.mp4" poster="../img/persik.png" />*/}
-        {/*<Div>*/}
-        {/*    <Textarea*/}
-        {/*      id="input_area"*/}
-        {/*      top="Любимая музыка"*/}
-        {/*      onChange={this.onChange}*/}
-        {/*      ref={node => this.input = node}*/}
-        {/*      placeholder="Сообщение" />*/}
-		{/*		    <Button size="xl" level="1" onClick={this.onAddMessage}>*/}
-		{/*		    	Послать*/}
-		{/*		    </Button>*/}
-        {/*</Div>*/}
       </Div>
     );
   }

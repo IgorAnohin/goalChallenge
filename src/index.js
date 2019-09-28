@@ -3,6 +3,7 @@ import 'core-js/es6/set';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import connect from '@vkontakte/vkui-connect';
+
 import App from './App';
 // import registerServiceWorker from './sw';
 
@@ -11,6 +12,9 @@ connect.send('VKWebAppInit', {});
 
 connect.subscribe((e) => console.log(e));
 connect.send("VKWebAppGetUserInfo", {});
+// connect.send("VKWebAppGetAuthToken", {});
+// connect.send("VKWebAppGetAuthToken", {"app_id": 7108273, "scope": "stories"});
+
 
 
 // Если вы хотите, чтобы ваше веб-приложение работало в оффлайне и загружалось быстрее,

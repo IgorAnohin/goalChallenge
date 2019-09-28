@@ -5,38 +5,34 @@ import { Panel, ListItem, Button, Group, Div, Avatar, PanelHeader,Link } from '@
 import PlayVideo from './PlayVideo';
 import FileSelector from './FileSelector'
 
-const Home = ({ id, go, fetchedUser }) => (
+const Home = ({ id, go, fetchedUser, access_token }) => (
 	<Panel id={id}>
 		<PanelHeader>Example</PanelHeader>
-		{fetchedUser &&
-		<Group title="User Data Fetched with VK Connect">
-			<ListItem
-				before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-				description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-			>
-				{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
-			</ListItem>
-		</Group>}
+		{/*{fetchedUser &&*/}
+		{/*<Group title="User Data Fetched with VK Connect">*/}
+		{/*	<ListItem*/}
+		{/*		before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}*/}
+		{/*		description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}*/}
+		{/*	>*/}
+		{/*		{`${fetchedUser.first_name} ${fetchedUser.last_name}`}*/}
+		{/*	</ListItem>*/}
+		{/*</Group>}*/}
 
-		<Group title="Navigation Example">
+		<Group title="EventName">
 			<Div>
-				Краткое описание ввидоса и
+				Краткое описание видоса и
 				<Link>Link</Link>
 			</Div>
-			{/*<Div>*/}
-			{/*	<Button size="xl" level="2" onClick={go} data-to="persik">*/}
-			{/*		Show me the Persik, please*/}
-			{/*	</Button>*/}
-			{/*</Div>*/}
 		</Group>
-		{fetchedUser &&
 
-		<Group title="Видосик">
-			<PlayVideo user={`${fetchedUser.id}`}/>
+		{fetchedUser  &&
+		<Group>
+			<FileSelector user_id={fetchedUser.id} access_token={access_token}/>
 		</Group>}
-		{fetchedUser &&
-		<Group title="Повторить">
-			<FileSelector user={`${fetchedUser.id}`}/>
+
+		{fetchedUser  &&
+		<Group>
+			<PlayVideo/>
 		</Group>}
 	</Panel>
 );

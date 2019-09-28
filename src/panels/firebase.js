@@ -1,11 +1,11 @@
 import * as firebase from 'firebase';
 
-const config = {
-    apiKey: "AIzaSyA09A1cOlMl6YC237rNbskE63KyqwaRjcA",
-    authDomain: "expensivevkchat.firebaseapp.com",
-    databaseURL: "https://expensivevkchat.firebaseio.com",
-    storageBucket: "gs://expensivevkchat.appspot.com"
-};
+//const config = {
+//    apiKey: "AIzaSyA09A1cOlMl6YC237rNbskE63KyqwaRjcA",
+//    authDomain: "expensivevkchat.firebaseapp.com",
+//    databaseURL: "https://expensivevkchat.firebaseio.com",
+//    storageBucket: "gs://expensivevkchat.appspot.com"
+//};
 const config = {
     apiKey: "AIzaSyD-C4pgxhFSjlzf60rVDZ1_WzCw0IFzpOw",
     authDomain: "goalchallenge-8de36.firebaseapp.com",

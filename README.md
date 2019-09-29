@@ -1,3 +1,9 @@
+# The Project is Not ONLY MASTER BRANCH
+>
+>FRONT-end in front-end branch
+>Middle-end in middle end branch
+>
+
 ## How to install
 
 `npx @vkontakte/create-vk-app <folder name>`
@@ -9,5 +15,3 @@ Go to created folder and run:
 
 `npm run build` — this will build production bundle, with treeshaking, uglify and all this modern fancy stuff
 
-FRONT-end in front-end branch
-Middle-end in middle end branch

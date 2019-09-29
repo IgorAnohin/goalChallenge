@@ -58,7 +58,7 @@ export default class PlayVideo extends Component {
               align="right"
               style={{ height: 150 }}
           >
-              <div style={{ backgroundColor: 'var(--destructive)' }} >
+              <div style={{ backgroundColor: 'ffffff' }} >
                   <ReactPlayer url='http://95.213.37.15:8000/video_cutted.mp4' playing wrapper="fff"/>
 
               </div>

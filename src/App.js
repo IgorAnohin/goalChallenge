@@ -3,7 +3,12 @@ import connect from '@vkontakte/vkui-connect';
 import { View, Panel, PanelHeader, Epic, Tabbar, TabbarItem} from '@vkontakte/vkui';
 
 import '@vkontakte/vkui/dist/vkui.css';
-import Icon28Notifications from "@vkontakte/icons/dist/28/notifications";
+import Icon32Poll from "@vkontakte/icons/dist/32/poll";
+import Icon20CalendarOutline from "@vkontakte/icons/dist/20/calendar_outline"
+import Icon20HomeOutline from "@vkontakte/icons/dist/20/home_outline"
+import Icon24Live from "@vkontakte/icons/dist/24/live"
+
+
 
 
 import Home from './panels/Home';
@@ -69,25 +74,25 @@ class App extends React.Component {
 						selected={this.state.activeStory === 'home'}
 						data-story="home"
 						text="Главная"
-					><Icon28Notifications /></TabbarItem>
+					><Icon20HomeOutline /></TabbarItem>
 					<TabbarItem
 						onClick={this.onStoryChange}
 						selected={this.state.activeStory === 'tasks'}
 						data-story="tasks"
 						text="Задачи"
-					><Icon28Notifications /></TabbarItem>
+					><Icon24Live /></TabbarItem>
 					<TabbarItem
 						onClick={this.onStoryChange}
 						selected={this.state.activeStory === 'top'}
 						data-story="top"
 						text="Топ"
-					><Icon28Notifications /></TabbarItem>
+					><Icon32Poll /></TabbarItem>
 					<TabbarItem
 						onClick={this.onStoryChange}
 						selected={this.state.activeStory === 'cup'}
 						data-story="cup"
 						text="Кубок"
-					><Icon28Notifications /></TabbarItem>
+					><Icon20CalendarOutline /></TabbarItem>
 				</Tabbar>
 			}>
 				<View id="home" activePanel="home">

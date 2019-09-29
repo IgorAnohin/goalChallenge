@@ -34,6 +34,11 @@ var access_token = "";
 var video_url = "";
 var result = "";
 
+var setResultState;
+
+
+var setResultStateTrue = srst;
+function srst (){this.setState({spinnerOn: true})};
 
 export default class FileDialogue extends React.Component {
     constructor(props) {
@@ -45,6 +50,7 @@ export default class FileDialogue extends React.Component {
             spinnerOn : false,
             resultGetted: false
         };
+        setResultState = this;
     }
     componentDidMount() {
         connect.subscribe((e) => {
@@ -86,26 +92,24 @@ export default class FileDialogue extends React.Component {
                     connect.send("VKWebAppCallAPIMethod",{"method": "stories.getVideoUploadServer", "request_id": "32test", "params": {"add_to_news": "1", "v":"5.101", "access_token":access_token}});
                     // database.ref('urls').update({ post: video_url});
 
-                    const dataRef = database.ref('videos');
-                alert('Database ref');
+                    const dataRef = database.ref('videos/');
 
                 // dataRef.on('eve')
                 dataRef.on('child_changed',function(snapshot) {
-                        this.setState({spinnerOn: false});
-                        let dataObj = snapshot.val();
-                        let videos = [];
+
+                    let dataObj = snapshot.val();
+
+                    let videos = [];
                         console.log("mew", "ChildrenChanged");
-                        alert('Children Changed');
 
                         if (dataObj !== undefined && dataObj !== null) {
                             console.log("mew", "Data is");
                             // alert('data is' );
                             // console.log("mew", dataObj)
                             // Object.keys(dataObj).forEach(key => {if(key==="score"){videos.push(dataObj[key])}});
-                            alert('Your score is ' + videos);
-                            this.setState({resultGetted: true})
-                            this.result = videos
-                            alert('Your score is ' + videos);
+                            result = dataObj["score"];
+                            setResultState.setState({spinnerOn: false, resultGetted: true});
+
                             // console.log("mew", videos)
                             //
                             //
@@ -137,7 +141,7 @@ export default class FileDialogue extends React.Component {
                 <Spinner size="large" style={{ marginTop: 20 }} />
             </Div>
         }
-        else if(this.state.resultGetted) {return <Div>{result}</Div>}
+        else if(this.state.resultGetted) {return <Div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>Ваш результат: {result}</Div>}
         else {return <Div className="previewComponent">
             <FormLayout>
                 <File  top="Загрузите видео"

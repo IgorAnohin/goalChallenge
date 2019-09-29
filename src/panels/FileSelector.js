@@ -144,7 +144,7 @@ export default class FileDialogue extends React.Component {
         else if(this.state.resultGetted) {return <Div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>Ваш результат: {result}</Div>}
         else {return <Div className="previewComponent">
             <FormLayout>
-                <File  top="Загрузите видео"
+                <File  top="Загрузите видео и опубликуйте историю"
                        before={<Icon24Camera />}
                        size="xl"
                        level="secondary"

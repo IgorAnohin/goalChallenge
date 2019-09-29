@@ -1,6 +1,21 @@
 import React from 'react';
 import {database, storage, storage1} from './firebase';
 import {Div, Button, Group} from "@vkontakte/vkui";
+import {
+    Panel,
+    ListItem,
+    Spinner,
+    Avatar,
+    InfoRow,
+    Link,
+    Cell,
+    List,
+    Progress,
+    Tabs,
+    TabsItem,
+    FixedLayout,
+    View, PanelHeader, Epic
+} from '@vkontakte/vkui';
 import FormLayout from "@vkontakte/vkui/dist/components/FormLayout/FormLayout";
 import File from "@vkontakte/vkui/dist/components/File/File";
 import Icon24Camera from "@vkontakte/icons/dist/24/camera";
@@ -17,16 +32,21 @@ function buildFileSelector() {
 var user_id = "0";
 var access_token = "";
 var video_url = "";
+var result = "";
+
+
 export default class FileDialogue extends React.Component {
     constructor(props) {
         super(props);
         user_id = this.props.user_id;
         access_token = this.props.access_token;
 
-        this.state = {file: '', videoUrl: ''};
+        this.state = {file: '', videoUrl: '',
+            spinnerOn : false,
+            resultGetted: false
+        };
     }
     componentDidMount() {
-        alert("SUBSCRIPVE");
         connect.subscribe((e) => {
             if (e.detail.type === 'VKWebAppCallAPIMethodResult') {
                 this.setState({videoUrl: e.detail.data.response.upload_url});
@@ -34,20 +54,17 @@ export default class FileDialogue extends React.Component {
                 console.log(e.detail.data.response.upload_url);
                 database.ref('urls').update({ post: video_url});
             } else {
-                // alert(e.detail.type);
-                // console.log(e.detail.type);
+                console.log(e.detail.type);
             }
         });
     }
 
 
+
     handleLoadVideo(e) {
         e.preventDefault();
-        // alert("cfvghbjnkm");
-        // alert("This token: " + this.props.access_token);
-        access_token = this.props.access_token
-        // alert("Global token: " + access_token);
-
+        this.setState({spinnerOn: true});
+        access_token = this.props.access_token;
         let reader = new FileReader();
         let file = e.target.files[0];
 
@@ -63,22 +80,40 @@ export default class FileDialogue extends React.Component {
         let storageRef = storage.ref();
         let uploadTask = storageRef.child("videos/"+file.name + "32");
         uploadTask.put(file).then(function(snapshot) {
-            alert("ON");
             snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                    alert(user_id + downloadURL);
-                    database.ref('videos').push({ userid: user_id, postedvideo: downloadURL, mergedvideo: '', score: ''});
+                    database.ref('videos').push({ userid: user_id, postedvideo: downloadURL, mergedvideo: '', score: '-1'});
 
                     connect.send("VKWebAppCallAPIMethod",{"method": "stories.getVideoUploadServer", "request_id": "32test", "params": {"add_to_news": "1", "v":"5.101", "access_token":access_token}});
                     // database.ref('urls').update({ post: video_url});
 
-                    const dataRef = database.ref('videos')
-                    dataRef.on('child_changed',function(snapshot) {
+                    const dataRef = database.ref('videos');
+                alert('Database ref');
+
+                // dataRef.on('eve')
+                dataRef.on('child_changed',function(snapshot) {
+                        this.setState({spinnerOn: false});
                         let dataObj = snapshot.val();
                         let videos = [];
+                        console.log("mew", "ChildrenChanged");
+                        alert('Children Changed');
+
                         if (dataObj !== undefined && dataObj !== null) {
-                            Object.keys(dataObj).forEach(key => videos.push(dataObj[key]));
-                            videos = videos.map((v) => { return {userid: v.userid, mergedvideo: v.mergedvideo, postedvideo: v.postedvideo, score: v.score}});
-                            videos.forEach((v)=> {if (v.userid===user_id && v.mergedvideo!=null){ alert("Score" + v.score)}}  );
+                            console.log("mew", "Data is");
+                            // alert('data is' );
+                            // console.log("mew", dataObj)
+                            // Object.keys(dataObj).forEach(key => {if(key==="score"){videos.push(dataObj[key])}});
+                            alert('Your score is ' + videos);
+                            this.setState({resultGetted: true})
+                            this.result = videos
+                            alert('Your score is ' + videos);
+                            // console.log("mew", videos)
+                            //
+                            //
+                            // videos = videos.map((v) => { return { mergedvideo: v.mergedvideo, postedvideo: v.postedvideo, score: v.score, userid: v.userid}});
+                            // alert('SCORE'+videos.score)
+                            // alert('mergedvideo'+videos.values()[0].mergedvideo)
+                            //
+                            // videos.forEach((v)=> {if (v.userid===user_id && v.mergedvideo!=null){ alert("Score" + v.score)}}  );
                         }
                     });
                 }).catch(function(error) {
@@ -94,41 +129,30 @@ export default class FileDialogue extends React.Component {
     }
 
 
+
     render() {
 
-        return (
-            <Div className="previewComponent">
-
-                <form onSubmit={(e) => this._handleSubmit(e)}>
-                    <input className="fileInput"
-                           type="file"
-                           onChange={(e) => this.handleLoadVideo(e)}/>
-                    <button className="submitButton"
-                            type="submit"
-                            onClick={(e) => this._handleSubmit(e)}>Upload Image
-                    </button>
-                </form>
-
-
-                    {/*<input className="fileInput"*/}
-                    {/*       type="file"*/}
-                    {/*       onChange={(e) => this._handleImageChange(e)}/>*/}
-
-                {/*<FormLayout>*/}
-                {/*    <File top="Загрузите видео"*/}
-                {/*          before={<Icon24Camera />}*/}
-                {/*          size="xl"*/}
-                {/*          level="secondary"*/}
-                {/*          className="fileInput"*/}
-                {/*          type="file"*/}
-                {/*          onChange={(e) => this.handleLoadVideo(e)}/>*/}
-                {/*</FormLayout>*/}
-
+        if (this.state.spinnerOn){
+            return <Div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                <Spinner size="large" style={{ marginTop: 20 }} />
             </Div>
-        )
+        }
+        else if(this.state.resultGetted) {return <Div>{result}</Div>}
+        else {return <Div className="previewComponent">
+            <FormLayout>
+                <File  top="Загрузите видео"
+                       before={<Icon24Camera />}
+                       size="xl"
+                       level="secondary"
+                       className="fileInput"
+                       type="file"
+                       onChange={(e) => this.handleLoadVideo(e)}/>
+            </FormLayout>
 
+        </Div>}
 
     }
 }
+
 
 

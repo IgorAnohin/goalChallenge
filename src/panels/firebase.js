@@ -7,14 +7,14 @@ import * as firebase from 'firebase';
 //    storageBucket: "gs://expensivevkchat.appspot.com"
 //};
 const config = {
-    apiKey: "AIzaSyD-C4pgxhFSjlzf60rVDZ1_WzCw0IFzpOw",
-    authDomain: "goalchallenge-8de36.firebaseapp.com",
-    databaseURL: "https://goalchallenge-8de36.firebaseio.com",
-    projectId: "goalchallenge-8de36",
-    storageBucket: "goalchallenge-8de36.appspot.com",
-    messagingSenderId: "824295567155",
-    appId: "1:824295567155:web:4bdbb136ef918c9b0e9846",
-    measurementId: "G-TXGZHKGNRB"
+    apiKey: "AIzaSyDCcGDb15HYfj6xrg85ceSfIK7q0USPAJU",
+    authDomain: "thelats-ef16e.firebaseapp.com",
+    databaseURL: "https://thelats-ef16e.firebaseio.com",
+    projectId: "thelats-ef16e",
+    storageBucket: "thelats-ef16e.appspot.com",
+    messagingSenderId: "740007976530",
+    appId: "1:740007976530:web:612368a87592b86e86898b",
+    measurementId: "G-5E3ZXXEHE8"
 };
 
 firebase.initializeApp(config);

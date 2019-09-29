@@ -2,39 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Panel, ListItem, Button, Group, Div, Avatar, PanelHeader,Link } from '@vkontakte/vkui';
 
+
 import PlayVideo from './PlayVideo';
 import FileSelector from './FileSelector'
 
 const Home = ({ id, go, fetchedUser, access_token }) => (
-	<Panel id={id}>
-		<PanelHeader>Example</PanelHeader>
-		{/*{fetchedUser &&*/}
-		{/*<Group title="User Data Fetched with VK Connect">*/}
-		{/*	<ListItem*/}
-		{/*		before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}*/}
-		{/*		description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}*/}
-		{/*	>*/}
-		{/*		{`${fetchedUser.first_name} ${fetchedUser.last_name}`}*/}
-		{/*	</ListItem>*/}
-		{/*</Group>}*/}
-
-		<Group title="EventName">
+	<Div id={id}>
+		<Group title="Девид Бэкхем">
 			<Div>
-				Краткое описание видоса и
-				<Link>Link</Link>
+				<div>
+					Знаменитый гол Девида Бекхема в ворота сборной Греции, выведший команду на мундиаль 2002 года. Проверь на сколько точно ты можешь повторить легендарный удар.
+				</div>
+				<div>Узнать подробнее о 7 лучших голах масетра шртафных  на </div>
+				<Link href="https://www.sports.ru/tribuna/blogs/mama4h/2347644.html"> sports.ru</Link>
 			</Div>
 		</Group>
 
-		{fetchedUser  &&
-		<Group>
-			<FileSelector user_id={fetchedUser.id} access_token={access_token}/>
-		</Group>}
 
 		{fetchedUser  &&
 		<Group>
 			<PlayVideo/>
 		</Group>}
-	</Panel>
+		{fetchedUser  &&
+		<Group>
+			<FileSelector user_id={fetchedUser.id} access_token={access_token}/>
+		</Group>}
+	</Div>
 );
 
 Home.propTypes = {
